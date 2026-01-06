@@ -166,5 +166,34 @@ export const authService = {
       success: false,
       error: 'No session found'
     };
+  },
+
+  // Update user profile
+  async updateProfile(updates: Partial<User>): Promise<AuthResponse> {
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    if (!authenticatedUser) {
+      return {
+        success: false,
+        error: 'Not authenticated'
+      };
+    }
+
+    // Update the authenticated user
+    authenticatedUser = {
+      ...authenticatedUser,
+      ...updates
+    };
+
+    // Also update in mock data if it exists there
+    const userIndex = mockUsers.findIndex(u => u.id === authenticatedUser!.id);
+    if (userIndex !== -1) {
+      mockUsers[userIndex] = authenticatedUser;
+    }
+
+    return {
+      success: true,
+      user: authenticatedUser
+    };
   }
 };

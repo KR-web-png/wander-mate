@@ -13,9 +13,11 @@ import { OnboardingScreen } from "@/screens/auth/OnboardingScreen";
 import { HomeScreen } from "@/screens/home/HomeScreen";
 import { DiscoverScreen } from "@/screens/discover/DiscoverScreen";
 import { TripsScreen } from "@/screens/trips/TripsScreen";
+import { CreateTripScreen } from "@/screens/trips/CreateTripScreen";
 import { MatchesScreen } from "@/screens/matches/MatchesScreen";
 import { ChatScreen } from "@/screens/chat/ChatScreen";
 import { ProfileScreen } from "@/screens/profile/ProfileScreen";
+import { EditProfileScreen } from "@/screens/profile/EditProfileScreen";
 
 import NotFound from "./pages/NotFound";
 
@@ -34,13 +36,15 @@ const App = () => (
           <Route path="/onboarding" element={<OnboardingScreen />} />
           
           {/* Main App Routes */}
-          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/home" element={<HomeScreen />} />
           <Route path="/discover" element={<DiscoverScreen />} />
           <Route path="/trips" element={<TripsScreen />} />
+          <Route path="/trips/create" element={<CreateTripScreen />} />
           <Route path="/matches" element={<MatchesScreen />} />
           <Route path="/chat" element={<ChatScreen />} />
           <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/profile/edit" element={<EditProfileScreen />} />
           
           {/* Catch-all */}
           <Route path="*" element={<NotFound />} />

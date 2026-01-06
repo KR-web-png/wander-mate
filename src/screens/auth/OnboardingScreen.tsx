@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ChevronRight, MapPin, Users, Heart, Shield, Check } from 'lucide-react';
 import { Button } from '@/components/common/Button';
 import { Badge } from '@/components/common/Badge';
+import { authService } from '@/services/auth.service';
 import { cn } from '@/lib/utils';
 
 interface OnboardingStep {
@@ -71,10 +72,23 @@ export const OnboardingScreen: React.FC = () => {
 
   const handleNext = () => {
     if (isStyleStep) {
-      navigate('/home');
+      // Save user preferences before navigating to home
+      handleComplete();
     } else {
       setCurrentStep(prev => prev + 1);
     }
+  };
+
+  const handleComplete = async () => {
+    // Update user profile with selected preferences
+    const currentUser = authService.getCurrentUser();
+    if (currentUser && (selectedInterests.length > 0 || selectedStyle)) {
+      await authService.updateProfile({
+        interests: selectedInterests.length > 0 ? selectedInterests : currentUser.interests,
+        travelStyle: selectedStyle || currentUser.travelStyle,
+      });
+    }
+    navigate('/home');
   };
 
   const handleSkip = () => {
